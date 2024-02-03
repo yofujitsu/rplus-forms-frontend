@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Форма для заполнения данных</title>
+</head>
+<body>
+    <h1>Форма для заполнения данных</h1>
+    <form id="dataForm">
+        <label for="contractType">Тип договора:</label>
+        <select id="contractType" name="contractType">
+            <option value="exclusive">Эксклюзивный</option>
+            <option value="nonExclusive">Неэксклюзивный</option>
+        </select><br>
+
+        <label for="previouslyReleased">Выпускались ли ранее треки через нас:</label>
+        <select id="previouslyReleased" name="previouslyReleased">
+            <option value="yes">Да</option>
+            <option value="no">Нет</option>
+        </select><br>
+
+        <!-- Другие поля для ввода данных -->
+
+        <button type="button" onclick="submitForm()">Отправить</button>
+    </form>
+
+    <script>
+        function submitForm() {
+            // Получение данных из формы
+            const contractType = document.getElementById('contractType').value;
+            const previouslyReleased = document.getElementById('previouslyReleased').value;
+
+            // Отправка данных на сервер (замените URL на ваш серверный скрипт)
+            fetch('http://ваш_сервер:порт/обработчик_формы', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contractType,
+                    previouslyReleased,
+                    // Другие данные формы
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Обработка ответа от сервера (если необходимо)
+                console.log('Ответ от сервера:', data);
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+            });
+        }
+    </script>
+</body>
+</html>
