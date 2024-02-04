@@ -1,0 +1,49 @@
+{
+    "id": 0,
+    "country": "string",
+    "fio": "string",
+    "nickName": "string",
+    "agreementDate": "2024-02-04T11:27:34.930Z",
+    "passData": {
+      "passportID": "string",
+      "passportSeries": "string",
+      "issued": "string",
+      "departmentCode": "string",
+      "dateOfIssue": "2024-02-04T11:27:34.930Z",
+      "email": "string",
+      "accountNumber": "string",
+      "payeesBank": "string",
+      "bic": "string",
+      "cardNumber": "string"
+    },
+    "royalityDatas": [
+      {
+        "firstRow": "string",
+        "secondRow": "string"
+      }
+    ],
+    "musics": [
+      {
+        "id": 0,
+        "title": "string",
+        "duration": "string",
+        "instrumentalAuthorFIO": "string",
+        "wordAuthorFIO": "string",
+        "executor": "string",
+        "manufacturerOfPhonogram": "string",
+        "licenseTerm": 0
+      }
+    ],
+    "reportForms": [
+      {
+        "id": 0,
+        "name": "string",
+        "musicAuthor": "string",
+        "scriptWriter": "string",
+        "executor": "string",
+        "licenseeIncome": "string",
+        "licensorRemuneration": "string"
+      }
+    ]
+  }
+  
