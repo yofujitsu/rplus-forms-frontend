@@ -46,11 +46,11 @@ function getMusicData() {
             musics.push(music);
         });
 
-    const jsonData = {
-        musics: musics
-    };
+    // const jsonData = {
+    //     musics: musics
+    // };
 
-    return jsonData;
+    return musics;
 }
 
 function getRoyaltyData() {
@@ -66,11 +66,20 @@ function getRoyaltyData() {
             royalityDatas.push(royalty);
         });
 
-    const jsonData = {
-        royalityDatas: royalityDatas || null
-    };
+    // const jsonData = {
+    //     royalityDatas: royalityDatas || null
+    // };
 
-    return jsonData;
+    return royalityDatas;
+}
+
+function countryFix() {
+    let country = document.getElementById('country').value;
+    if (country.slice(-1) === 'я'){country = country.slice(0, -1) + "и"}
+    if (country === 'Россия'){country = 'РФ'}
+    if (country.slice(-1) === 'а' && country.slice(-2) === 'ш'){country = country.slice(0, -1) = 'и'}
+    if (country.slice(-1) === 'а' && country.slice(-2) !== 'ш'){country = country.slice(0, -1) = 'ы'}
+    return country;    
 }
 
 
@@ -78,7 +87,7 @@ function submitForm() {
             // Получение данных из формы
             const formData = {
                 id: document.getElementById('formId').value || 0,
-                country: document.getElementById('country').value || null,
+                country: countryFix() || null,
                 fio: document.getElementById('fio').value || null,
                 fioTP: document.getElementById('fioTP').value || null,
                 nickName: document.getElementById('nickName').value || null,
@@ -149,6 +158,7 @@ function submitType() {
         document.getElementById('data2').style.display = 'block';
         document.getElementById('data3').style.display = 'block';
         document.getElementById('data4').style.display = 'block';
+        document.getElementById('applIdBlock').style.display = 'none';
     } else if (contractType === 'nonExclusive' && previouslyReleased === 'yes') {
         typeId = 2;
         link = 'https://disk.yandex.ru/i/SsGhaW2SJbX87Q';
@@ -163,6 +173,7 @@ function submitType() {
         document.getElementById('data2').style.display = 'block';
         document.getElementById('data3').style.display = 'block';
         document.getElementById('data4').style.display = 'block';
+        document.getElementById('applIdBlock').style.display = 'none';
     }
 
     document.getElementById('resultText').innerText = "Ваша ссылка на документ готова!";
@@ -186,9 +197,10 @@ function lisenceTermPlaceholder() {
 
 function generateJSON() {
     const formData = {
-        typeId: typeId,
-        id: document.getElementById('formId').value || 0,
-        country: document.getElementById('country').value || null,
+        typeId: typeId || null,
+        id: document.getElementById('formId').value || null,
+        applId: document.getElementById('applId').value || null,
+        country: countryFix() || null,
         fio: document.getElementById('fio').value || null,
         fioTP: document.getElementById('fioTP').value || null,
         nickName: document.getElementById('nickName').value || null,

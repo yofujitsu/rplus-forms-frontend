@@ -46,8 +46,14 @@
             <h4 class="mt-3" style="text-align: center;">Общие данные (п. 1)</h4>
 
             <div class="mb-1">
-                <label for="formId" class="form-label">Номер договора (ID заказа):</label>
+                <label for="formId" class="form-label">Номер договора (Номер, который дал менеджер):</label>
                 <input type="text" class="form-control" id="formId" name="formId" required>
+            </div>
+
+            <div class="mb-1" id="applIdBlock">
+                <label for="applId" class="form-label">Номер приложения (какой это по счёту документ (отсчёт начинается от 3, то есть если второй
+                    релиз, то приложение номер 4)):</label>
+                <input type="text" class="form-control" id="applId" name="applId" required>
             </div>
 
             <div class="mb-1">

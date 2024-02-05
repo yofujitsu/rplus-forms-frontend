@@ -1,5 +1,4 @@
-{
-  "type" 
+{ 
   "id": 0,
     "country": "string",
     "fio": "string",
