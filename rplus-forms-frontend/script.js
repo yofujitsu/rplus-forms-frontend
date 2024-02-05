@@ -1,20 +1,4 @@
-// function getCurrentDateTime() {
-//     var currentDate = new Date();
-
-//     // Получаем компоненты даты и времени
-//     var year = currentDate.getFullYear();
-//     var month = ('0' + (currentDate.getMonth() + 1)).slice(-2); // Месяцы начинаются с 0
-//     var day = ('0' + currentDate.getDate()).slice(-2);
-//     var hours = ('0' + currentDate.getHours()).slice(-2);
-//     var minutes = ('0' + currentDate.getMinutes()).slice(-2);
-//     var seconds = ('0' + currentDate.getSeconds()).slice(-2);
-//     var milliseconds = ('00' + currentDate.getMilliseconds()).slice(-3);
-
-//     // Собираем строку в нужном формате
-//     var formattedDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes + ':' + seconds + '.' + milliseconds + 'Z';
-
-//     return formattedDateTime;
-// }
+let typeId = -1;
 
 document.querySelectorAll('.data').forEach(div => {
     div.style.display = 'none';
@@ -116,7 +100,6 @@ function submitForm() {
                 musics: getMusicData()
             };
 
-            console.log(formData);
 
             fetch('http://127.0.0.1:5000/post', {
                 method: 'POST',
@@ -150,26 +133,31 @@ function submitType() {
         div.style.display = 'none';
     });
 
-    document.getElementById('submitButton').style.display = 'block';
+    // document.getElementById('submitButton').style.display = 'block';
+    document.getElementById('generateButton').style.display = 'block';
     if (contractType === 'exclusive' && previouslyReleased === 'yes') {
+        typeId = 2;
         link = 'https://disk.yandex.ru/i/ppnvGxjxV0G34g';
         document.getElementById('data1').style.display = 'block';
         document.getElementById('nickNameBlock').style.display = 'none';
         document.getElementById('fioTPBlock').style.display = 'none';
         document.getElementById('data4').style.display = 'block';
     } else if (contractType === 'exclusive' && previouslyReleased === 'no') {
+        typeId = 1;
         link = 'https://disk.yandex.ru/i/7Ir0sEAxYBTp6A';
         document.getElementById('data1').style.display = 'block';
         document.getElementById('data2').style.display = 'block';
         document.getElementById('data3').style.display = 'block';
         document.getElementById('data4').style.display = 'block';
     } else if (contractType === 'nonExclusive' && previouslyReleased === 'yes') {
+        typeId = 2;
         link = 'https://disk.yandex.ru/i/SsGhaW2SJbX87Q';
         document.getElementById('data1').style.display = 'block';
         document.getElementById('nickNameBlock').style.display = 'none';
         document.getElementById('fioTPBlock').style.display = 'none';
         document.getElementById('data4').style.display = 'block';
     } else if (contractType === 'nonExclusive' && previouslyReleased === 'no') {
+        typeId = 1;
         link = 'https://disk.yandex.ru/i/BUw8ywTquE0Mlw';
         document.getElementById('data1').style.display = 'block';
         document.getElementById('data2').style.display = 'block';
@@ -195,3 +183,44 @@ function lisenceTermPlaceholder() {
     }
 }
 
+
+function generateJSON() {
+    const formData = {
+        typeId: typeId,
+        id: document.getElementById('formId').value || 0,
+        country: document.getElementById('country').value || null,
+        fio: document.getElementById('fio').value || null,
+        fioTP: document.getElementById('fioTP').value || null,
+        nickName: document.getElementById('nickName').value || null,
+        agreementDate: document.getElementById('agreementDate').value || null,
+        passData: {
+            passportID: document.getElementById('passportID').value || null,
+            passportSeries: document.getElementById('passportSeries').value || null,
+            issued: document.getElementById('issued').value || null,
+            departmentCode: document.getElementById('departmentCode').value || null,
+            dateOfIssue: document.getElementById('dateOfIssue').value || null,
+            email: document.getElementById('email').value || null,
+            accountNumber: document.getElementById('accountNumber').value || null,
+            payeesBank: document.getElementById('payeesBank').value || null,
+            bic: document.getElementById('bic').value || null,
+            correspondentAccount: document.getElementById('correspondentAccount').value || null,
+            cardNumber: document.getElementById('cardNumber').value || null
+        },
+        royalityDatas: getRoyaltyData(),
+        musics: getMusicData()
+    };
+
+    const jsonString = JSON.stringify(formData, null, 2);
+
+    // Создание Blob и ссылки для скачивания
+    const blob = new Blob([jsonString], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+
+    // Создание ссылки и скачивание файла
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'formData.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
