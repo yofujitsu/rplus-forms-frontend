@@ -76,7 +76,8 @@ function getRoyaltyData() {
 function countryFix() {
     let country = document.getElementById('country').value;
     if (country.slice(-1) === 'я'){country = country.slice(0, -1) + "и"}
-    if (country === 'Россия'){country = 'РФ'}
+    if (country.slice(-1) === 'ь'){country = country.slice(0, -1) + "и"}
+    if (country === 'Россия' || country === 'России'){country = 'РФ'}
     if (country.slice(-1) === 'а' && country.slice(-2) === 'ш'){country = country.slice(0, -1) = 'и'}
     if (country.slice(-1) === 'а' && country.slice(-2) !== 'ш'){country = country.slice(0, -1) = 'ы'}
     return country;    
@@ -199,7 +200,7 @@ function generateJSON() {
     const formData = {
         typeId: typeId || null,
         id: document.getElementById('formId').value || null,
-        applId: document.getElementById('applId').value || null,
+        applId: parseInt(document.getElementById('applId').value) || null,
         country: countryFix() || null,
         fio: document.getElementById('fio').value || null,
         fioTP: document.getElementById('fioTP').value || null,
